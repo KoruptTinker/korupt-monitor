@@ -17,7 +17,7 @@ func InitServer() (*gin.Engine, *config.Config) {
 		Services: services,
 	}
 	engine := gin.Default()
-	routes.AddURLs(&engine.RouterGroup, server)
+	routes.AddURLs(&engine.RouterGroup, &server)
 
 	return engine, &configuration
 }
