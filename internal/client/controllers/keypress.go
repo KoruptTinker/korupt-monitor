@@ -1,13 +1,11 @@
-package keyboard
+package controllers
 
 import (
-	"fmt"
-
 	hook "github.com/robotn/gohook"
 )
 
-func RecordCountData() {
+func (client *ClientController) RecordKeyPress() {
 	hook.Register(hook.KeyDown, []string{}, func(e hook.Event) {
-		fmt.Println("Key Pressed")
+		client.UserKeyPresses.KeyPresses++
 	})
 }

@@ -1,10 +1,10 @@
-package screen
+package controllers
 
 import (
 	"github.com/kbinani/screenshot"
 )
 
-func CaptureScreen() ([]byte, error) {
+func (client *ClientController) CaptureScreen() ([]byte, error) {
 	numDisplays := screenshot.NumActiveDisplays()
 
 	if numDisplays > 1 {

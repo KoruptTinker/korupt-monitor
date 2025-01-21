@@ -1,9 +1,7 @@
 package main
 
-import (
-	"github.com/KoruptTinker/korupt-monitor/client/screen"
-)
+import "fmt"
 
 func main() {
-	screen.CaptureScreen()
+	fmt.Println("Pass")
 }
