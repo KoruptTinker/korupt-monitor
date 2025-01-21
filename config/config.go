@@ -10,6 +10,11 @@ type Config struct {
 	Server struct {
 		Port int `mapstructure:"port"`
 	} `mapstructure:"server"`
+	Db struct {
+		User         string `mapstructure:"user"`
+		Pass         string `mapstructure:"pass"`
+		ConectionURL string `mapstructure:"connection_url"`
+	}
 }
 
 func ParseConfig(configPath string) Config {
