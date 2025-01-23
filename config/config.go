@@ -15,6 +15,11 @@ type Config struct {
 		Pass         string `mapstructure:"pass"`
 		ConectionURL string `mapstructure:"connection_url"`
 	}
+	External struct {
+		KoruptMonitorServer struct {
+			Hostname string `mapstructure:"hostname"`
+		} `mapstructure:"korupt_monitor_server"`
+	} `mapstructure:"external"`
 }
 
 func ParseConfig(configPath string) Config {

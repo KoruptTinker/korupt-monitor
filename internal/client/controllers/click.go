@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"context"
+
 	hook "github.com/robotn/gohook"
 )
 
@@ -17,4 +19,21 @@ func (client *ClientController) RecordClick() {
 			client.UserClicks.Lock.Unlock()
 		}
 	})
+}
+
+func (client *ClientController) TransmitClickData() error {
+	client.UserClicks.Lock.Lock()
+
+	if err := client.External.KoruptMonitorServer.RecordClickData(
+		context.Background(), client.UserClicks.LeftClicks, client.UserClicks.RightClicks,
+	); err != nil {
+		return err
+	}
+
+	client.UserClicks.LeftClicks = 0
+	client.UserClicks.RightClicks = 0
+
+	client.UserClicks.Lock.Unlock()
+
+	return nil
 }

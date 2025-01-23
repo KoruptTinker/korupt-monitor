@@ -14,3 +14,8 @@ type HttpResponse struct {
 }
 
 type HttpClient struct{}
+
+type BaseExternal struct {
+	Hostname string
+	HttpClient
+}

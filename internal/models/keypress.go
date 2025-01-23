@@ -15,7 +15,7 @@ type KeyPresses struct {
 
 func (db *Mongo) InsertKeypressData(ctx context.Context, count int) error {
 	timeNow := time.Now()
-	keyData := Clicks{
+	keyData := KeyPresses{
 		Timestamp: timeNow,
 		Count:     count,
 	}

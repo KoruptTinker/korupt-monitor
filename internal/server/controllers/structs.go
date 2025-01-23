@@ -6,7 +6,8 @@ type BaseResponse struct {
 }
 
 type RecordClickDataRequest struct {
-	ClickCount int `json:"click_count"`
+	LeftClickCount  int `json:"left_click_count"`
+	RightClickCount int `json:"right_click_count"`
 }
 
 type RecordKeyPressDataRequest struct {

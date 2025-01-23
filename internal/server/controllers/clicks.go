@@ -19,7 +19,7 @@ func (c *Controller) RecordUserClick(ctx *gin.Context) BaseResponse {
 		}
 	}
 
-	if err := c.DB.InsertClickData(ctx, requestData.ClickCount); err != nil {
+	if err := c.DB.InsertClickData(ctx, requestData.LeftClickCount, requestData.RightClickCount); err != nil {
 		return BaseResponse{
 			ResponseCode: http.StatusInternalServerError,
 			ResponseData: map[string]string{

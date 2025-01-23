@@ -1,7 +1,9 @@
 package main
 
-import "fmt"
-
 func main() {
-	fmt.Println("Pass")
+	engine := InitClient()
+
+	engine.Start()
+
+	select {}
 }

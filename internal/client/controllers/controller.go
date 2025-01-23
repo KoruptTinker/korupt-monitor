@@ -3,6 +3,7 @@ package controllers
 import (
 	"fmt"
 
+	"github.com/KoruptTinker/korupt-monitor/internal/services"
 	"github.com/go-co-op/gocron/v2"
 )
 
@@ -10,10 +11,8 @@ type ClientController struct {
 	Engine         gocron.Scheduler
 	UserClicks     ClickData
 	UserKeyPresses KeyboardData
-	External       Services
+	External       services.External
 }
-
-type Services struct{}
 
 func New() *ClientController {
 	sched, err := gocron.NewScheduler()
@@ -24,6 +23,6 @@ func New() *ClientController {
 		Engine:         sched,
 		UserKeyPresses: KeyboardData{},
 		UserClicks:     ClickData{},
-		External:       Services{},
+		External:       services.External{},
 	}
 }
