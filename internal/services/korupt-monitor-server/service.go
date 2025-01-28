@@ -9,7 +9,7 @@ import (
 	httpClient "github.com/KoruptTinker/korupt-monitor/internal/core/http_client"
 )
 
-func New(config config.Config) *Service {
+func New(config *config.Config) *Service {
 	return &Service{
 		BaseExternal: httpClient.BaseExternal{
 			Hostname: config.External.KoruptMonitorServer.Hostname,
@@ -25,6 +25,7 @@ func (s *Service) RecordClickData(ctx context.Context, leftClickCount int, right
 
 	_, err := s.Request(&ctx, fmt.Sprintf("%s/api/v1/clicks", s.Hostname), http.MethodPut, reqPayload, nil)
 	if err != nil {
+		fmt.Printf("Error transmitting click data: %v", err.Error())
 		return err
 	}
 
@@ -38,6 +39,7 @@ func (s *Service) RecordKeypressData(ctx context.Context, keyPressCount int) err
 
 	_, err := s.Request(&ctx, fmt.Sprintf("%s/api/v1/keypresses", s.Hostname), http.MethodPut, reqPayload, nil)
 	if err != nil {
+		fmt.Printf("Error transmitting keypress data: %v", err.Error())
 		return err
 	}
 

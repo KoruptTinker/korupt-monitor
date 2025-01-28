@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"context"
+	"fmt"
 
 	hook "github.com/robotn/gohook"
 )
@@ -23,10 +24,10 @@ func (client *ClientController) RecordClick() {
 
 func (client *ClientController) TransmitClickData() error {
 	client.UserClicks.Lock.Lock()
-
 	if err := client.External.KoruptMonitorServer.RecordClickData(
 		context.Background(), client.UserClicks.LeftClicks, client.UserClicks.RightClicks,
 	); err != nil {
+		fmt.Printf("Encountered error: %v", err.Error())
 		return err
 	}
 
@@ -34,6 +35,5 @@ func (client *ClientController) TransmitClickData() error {
 	client.UserClicks.RightClicks = 0
 
 	client.UserClicks.Lock.Unlock()
-
 	return nil
 }
