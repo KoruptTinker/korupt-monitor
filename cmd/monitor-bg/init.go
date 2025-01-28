@@ -15,7 +15,7 @@ func InitClient() gocron.Scheduler {
 	if err != nil {
 		panic(fmt.Sprintf("Error creating scheduler engine: %v", err.Error()))
 	}
-	configObj := config.ParseConfig("config/prod.yaml")
+	configObj := config.ParseConfig("/etc/korupt-monitor/client.yaml")
 	clientController := controllers.New(&configObj)
 
 	go InitRecorders(clientController)

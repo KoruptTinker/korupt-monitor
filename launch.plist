@@ -1,0 +1,20 @@
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.korupt.monitor-bg</string> <!-- Unique identifier -->
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/local/bin/monitor-bg</string> <!-- Absolute path to your binary -->
+        <!-- Add command-line arguments here if needed -->
+    </array>
+    <key>RunAtLoad</key>
+    <true/> <!-- Run the binary when the agent is loaded -->
+    <key>KeepAlive</key>
+    <true/> <!-- Restart the binary if it exits -->
+    <key>StandardOutPath</key>
+    <string>/tmp/monitor-bg.out.log</string> <!-- Log stdout here -->
+    <key>StandardErrorPath</key>
+    <string>/tmp/monitor-bg.err.log</string> <!-- Log stderr here -->
+</dict>
+</plist>

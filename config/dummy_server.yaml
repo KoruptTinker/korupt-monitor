@@ -1,0 +1,9 @@
+server:
+  port: 7070
+db:
+  user: DB_USER
+  pass: DB_PASS
+  connection_url: DB_URL
+external:
+  korupt_monitor_server:
+    hostname: server_hostname
