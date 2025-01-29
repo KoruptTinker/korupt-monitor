@@ -9,7 +9,6 @@ NC='\033[0m' # No Color
 
 # Function to display header
 header() {
-  clear
   echo "${BLUE}"
   echo "#############################################"
   echo "#          KORUPT Monitor Installer         #"
@@ -29,6 +28,10 @@ header
 # Build the binary
 echo "${YELLOW}Building monitor-bg executable...${NC}"
 go build -o monitor-bg ./cmd/monitor-bg || error "Failed to build executable"
+
+# Code signing
+echo "${YELLOW}Signing executable...${NC}"
+codesign -s - -f -v --timestamp --options runtime monitor-bg || error "Code signing failed"
 
 # Install binary
 echo "${YELLOW}Installing to /usr/local/bin...${NC}"
@@ -58,14 +61,10 @@ echo "${YELLOW}Installing launch agent...${NC}"
 LAUNCH_AGENT_PATH="$HOME/Library/LaunchAgents/com.korupt.monitor-bg.plist"
 cp ./launch.plist "$LAUNCH_AGENT_PATH" || error "Failed to copy launch agent"
 
-# Code signing
-echo "${YELLOW}Signing executable...${NC}"
-sudo codesign -s - -f -v --timestamp --options runtime /usr/local/bin/monitor-bg || error "Code signing failed"
-
 # Load service
 load_service() {
   echo "${YELLOW}Attempting to load service...${NC}"
-  launchctl load "$LAUNCH_AGENT_PATH" && return 0
+  launchctl load "$LAUNCH_AGENT_PATH"
 
   echo "${RED}Failed to load service.${NC}"
   echo "You may need to grant Accessibility permissions in:"
@@ -95,13 +94,8 @@ load_service() {
 
 header
 echo "${YELLOW}Preparing service...${NC}"
-launchctl unload "$LAUNCH_AGENT_PATH" 2>/dev/null
-
 # Initial load attempt
-if ! launchctl load "$LAUNCH_AGENT_PATH" 2>/dev/null; then
-  echo "${YELLOW}First load attempt failed - checking permissions...${NC}"
-  load_service || error "Failed to load service after permission grant"
-fi
+load_service || error "Failed to load service after permission grant"
 
 header
 echo "${GREEN}Installation completed successfully!${NC}"
