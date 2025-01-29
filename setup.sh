@@ -9,6 +9,7 @@ NC='\033[0m' # No Color
 
 # Function to display header
 header() {
+  clear
   echo "${BLUE}"
   echo "#############################################"
   echo "#          KORUPT Monitor Installer         #"
