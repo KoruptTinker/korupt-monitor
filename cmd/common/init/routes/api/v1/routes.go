@@ -9,4 +9,5 @@ import (
 func AddURLs(r *gin.RouterGroup, server *controllers.Controller) {
 	r.PUT("/keypresses", middlewares.RequestHandler(server.RecordKeyPressData))
 	r.PUT("/clicks", middlewares.RequestHandler(server.RecordUserClick))
+	r.GET("/weekly", middlewares.RequestHandler(server.DisplayWeeklyData))
 }
