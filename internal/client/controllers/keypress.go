@@ -15,6 +15,7 @@ func (client *ClientController) RecordKeyPress() {
 }
 
 func (client *ClientController) TransmitKeypressData() error {
+	defer client.UserKeyPresses.Lock.Unlock()
 	client.UserKeyPresses.Lock.Lock()
 
 	if err := client.External.KoruptMonitorServer.RecordKeypressData(
@@ -24,8 +25,6 @@ func (client *ClientController) TransmitKeypressData() error {
 	}
 
 	client.UserKeyPresses.KeyPresses = 0
-
-	client.UserKeyPresses.Lock.Unlock()
 
 	return nil
 }

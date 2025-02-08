@@ -23,6 +23,7 @@ func (client *ClientController) RecordClick() {
 }
 
 func (client *ClientController) TransmitClickData() error {
+	defer client.UserClicks.Lock.Unlock()
 	client.UserClicks.Lock.Lock()
 	if err := client.External.KoruptMonitorServer.RecordClickData(
 		context.Background(), client.UserClicks.LeftClicks, client.UserClicks.RightClicks,
@@ -34,6 +35,5 @@ func (client *ClientController) TransmitClickData() error {
 	client.UserClicks.LeftClicks = 0
 	client.UserClicks.RightClicks = 0
 
-	client.UserClicks.Lock.Unlock()
 	return nil
 }
